@@ -1,0 +1,37 @@
+name: Dhanova CI
+
+on:
+  push:
+    branches: [main, deepak-ml-work]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install dependencies
+        run: python -m pip install -r backend/requirements.txt
+      - name: Compile Python
+        run: python -m compileall -q backend scripts
+      - name: Create deterministic importer fixture
+        run: python scripts/create_ci_fixture.py --output-dir .ci-fixture
+      - name: Validate migration and importer
+        run: python scripts/import_parquet_to_supabase.py --data-dir .ci-fixture --dry-run
+      - name: Validate migration contract
+        run: python -m pytest backend/app/test_migration_contract.py -q
+      - name: Run tests
+        env:
+          SUPABASE_URL: https://example.supabase.co
+          SUPABASE_KEY: test-anon-key
+          GEMINI_API_KEY: test-gemini-key
+        run: python -m pytest -q
+      - name: Check for committed secrets
+        run: |
+          if git ls-files | grep -E '(^|/)(\.env|.*\.env\.local)$'; then
+            echo 'Environment files must not be committed'
+            exit 1
+          fi

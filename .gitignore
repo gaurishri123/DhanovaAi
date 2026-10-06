@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Data files (large)
+data/*.parquet
+data/*.csv
+
+# Models
+models/*.joblib
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+*.env
+**/.env
+**/.env.*
+!**/.env.example
+
+
+.env

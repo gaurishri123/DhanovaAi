@@ -1,0 +1,157 @@
+{
+  "final_model": {
+    "name": "XGBoost (final)",
+    "pr_auc": 0.8062804873521084,
+    "roc_auc": 0.9919909824394875,
+    "precision_at_50": 0.78,
+    "recall_at_90pct_precision": 0.0,
+    "f1_score": 0.75
+  },
+  "baselines": {
+    "rule_based": {
+      "name": "Rule-based",
+      "precision": 1.0,
+      "recall": 0.061224489795918366,
+      "f1_score": 0.11538461538461539
+    },
+    "isolation_forest": {
+      "name": "Isolation Forest",
+      "precision": 0.47368421052631576,
+      "recall": 0.5510204081632653,
+      "f1_score": 0.5094339622641509
+    },
+    "xgboost_no_graph": {
+      "name": "XGBoost (no graph)",
+      "pr_auc": 0.7280838977079844,
+      "roc_auc": 0.9683940436639771,
+      "precision_at_50": 0.7,
+      "recall_at_90pct_precision": 0.0,
+      "f1_score": 0.7130434782608696
+    }
+  },
+  "ring_detection": {
+    "ring_precision": 0.01988862370723946,
+    "ring_recall": 1.0,
+    "detected_count": 1257,
+    "true_positive_count": 25,
+    "ground_truth_count": 25,
+    "per_archetype": {
+      "burst_mule": {
+        "ground_truth": 5,
+        "detected": 5,
+        "recall": 1.0,
+        "precision": 0.01988862370723946,
+        "f1": 0.03900156006240249
+      },
+      "circular_layering": {
+        "ground_truth": 5,
+        "detected": 5,
+        "recall": 1.0,
+        "precision": 0.01988862370723946,
+        "f1": 0.03900156006240249
+      },
+      "device_farm": {
+        "ground_truth": 4,
+        "detected": 4,
+        "recall": 1.0,
+        "precision": 0.01988862370723946,
+        "f1": 0.03900156006240249
+      },
+      "fan_in_collector": {
+        "ground_truth": 5,
+        "detected": 5,
+        "recall": 1.0,
+        "precision": 0.01988862370723946,
+        "f1": 0.03900156006240249
+      },
+      "fan_out_dispersal": {
+        "ground_truth": 6,
+        "detected": 6,
+        "recall": 1.0,
+        "precision": 0.01988862370723946,
+        "f1": 0.03900156006240249
+      }
+    },
+    "candidate_sources": {
+      "fan_in_hub": 1012,
+      "fan_out_hub": 201,
+      "shared_device": 28,
+      "cycle": 14,
+      "community": 2
+    },
+    "false_positive_count": 1232,
+    "precision_at_k": {
+      "10": 0.0,
+      "25": 0.08,
+      "50": 0.1
+    }
+  },
+  "ring_candidate_sources": {
+    "fan_in_hub": 1012,
+    "fan_out_hub": 201,
+    "shared_device": 28,
+    "cycle": 14,
+    "community": 2
+  },
+  "synthetic_data_disclaimer": "Metrics are based on generated data and are not real-world accuracy estimates.",
+  "test_set_size": 1425,
+  "test_fraud_count": 49,
+  "training_seed": 42,
+  "model_version": "1.0",
+  "feature_columns": [
+    "in_count",
+    "out_count",
+    "fan_in",
+    "fan_out",
+    "pass_through_ratio",
+    "median_dwell_minutes",
+    "max_txn_10min",
+    "amount_cv",
+    "new_counterparty_ratio",
+    "night_txn_ratio",
+    "near_threshold_ratio",
+    "account_age_days",
+    "device_count",
+    "max_accounts_per_device",
+    "in_degree",
+    "out_degree",
+    "pagerank",
+    "clustering_coef",
+    "community_size",
+    "community_internal_flow_ratio",
+    "community_density",
+    "in_short_cycle"
+  ],
+  "feature_schema_hash": "84890ec787724fa5091455ccede7642dc8ac81b9ee2f74d6a3b5c032b90bd23d",
+  "split_strategy": "temporal snapshots at 70/85/100 percent plus group-aware ring split",
+  "temporal_cutoffs": {
+    "train": "2025-12-23T00:59:18+00:00",
+    "validation": "2025-12-27T11:29:09+00:00",
+    "test": "2025-12-31T21:59:00+00:00"
+  },
+  "temporal_leakage_status": "feature snapshots use as_of cutoffs",
+  "git_commit": "0abd1a109da6ad0dd323b47f695f98f2c02164b2",
+  "library_versions": {
+    "python": "3.13.7",
+    "pandas": "3.0.6",
+    "scikit_learn": "1.9.1",
+    "xgboost": "3.4.1",
+    "networkx": "3.7"
+  },
+  "single_account_scoring_latency_ms": 4.293133334916395,
+  "decision_threshold": 0.5,
+  "confusion_matrix_labels": [
+    "clear",
+    "mule"
+  ],
+  "confusion_matrix": [
+    [
+      1360,
+      16
+    ],
+    [
+      10,
+      39
+    ]
+  ]
+}
